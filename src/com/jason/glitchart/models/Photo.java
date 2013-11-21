@@ -8,7 +8,7 @@
 *	array of pixel color values for effect processing 
 */
 
-package com.jason.models;
+package com.jason.glitchart.models;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
@@ -24,13 +24,16 @@ public class Photo {
 	private File 	file = null;
 	
 	private	 int 	width = 0,
-					height;
+					height = 0,
+					offset = 3;
 	
 	private BufferedImage 	oldPhoto = null, 
 							newPhoto = null;
 	
 	private int[][] pixelArray;
 	private ArrayList<Integer> pixelList;
+	
+	private boolean hasAlphaChannel = false;
 	
 	
 	public Photo(String file) {
@@ -57,15 +60,15 @@ public class Photo {
 		this.width = this.oldPhoto.getWidth();
 		this.height = this.oldPhoto.getHeight();
 		
-		boolean hasAlphaChannel = this.oldPhoto.getAlphaRaster() != null;
+		this.hasAlphaChannel = this.oldPhoto.getAlphaRaster() != null;
 		
 		this.pixelArray = new int[this.height][this.width];
 		
-		if (hasAlphaChannel) {
+		if (this.hasAlphaChannel) {
 			
-			int pixLength = 4;
+			this.offset = 4;
 			
-			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixLength) {
+			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += offset) {
 				int argb = 0;
 				
 				argb += (((int) pixels[pixel] & 0xFF) << 24); //alpha channel
@@ -85,9 +88,8 @@ public class Photo {
 			}
 			
 		} else {
-			int pixLength = 3;
 			
-			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixLength) {
+			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += offset) {
 				int argb = 0;
 				
 				argb += -16777216; //255 alpha channel

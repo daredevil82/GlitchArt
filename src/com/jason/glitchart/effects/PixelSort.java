@@ -3,40 +3,46 @@
 *	Date : Nov 20, 2013
 *	Description : 
 *
-*	Implements a pixels sort effect for the photo images, Java 
+*	Singleton implementation of a pixels sort effect for the photo images, Java 
 *	implementation of algorithm from
 *
 * 	https://github.com/kimasendorf/ASDFPixelSort
+* 
+* 
 */
 
-package com.jason.effects;
+package com.jason.glitchart.effects;
 
 import java.util.ArrayList;
 
-
-@SuppressWarnings("serial")
 public class PixelSort {
 	
-	public final int 	blackValue = -10000000,
-						whiteValue = -6000000,
+	private static PixelSort instance = null;
+	
+	public final int 	blackValue = -10000000, //equivalent to rgb(103, 105, 128)
+						whiteValue = -6000000,  //equivalent to rgb(164, 114, 128)
 						brightnessValue = 60;
+	
+	//zero arg constructor
+	protected PixelSort() { }
+	
+	//singleton pattern constraint
+	public static PixelSort getInstance() {
+		if (instance == null)
+			instance = new PixelSort();
+		
+		return instance;
+	}
 	
 	public int[][] sortBlack(int[][] data, int width, int height) {
 		return null;
 	}
-	
-	public int[][] sortBlack(ArrayList<Integer> data, int width, int height){
-		return null;
-	}
-	
+		
 	public int[][] sortWhite(int[][] data, int width, int height){
 		return null;
 	}
 	
-	public int[][] sortWhite(ArrayList<Integer> data, int width, int height) {
-		return null;
-	}
-
+	
 	/***
 	 * 
 	 * @param data

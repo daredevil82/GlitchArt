@@ -6,9 +6,9 @@
 *	Controller for the Photo portion of the application
 */
 
-package com.jason.controllers;
+package com.jason.glitchart.controllers;
 
-import com.jason.models.*;
+import com.jason.glitchart.models.*;
 
 import java.util.ArrayList;
 
