@@ -2,6 +2,8 @@
 *	Author: Jason
 *	Date : Nov 20, 2013
 *	Description : 
+*
+*	Controller for the Photo portion of the application
 */
 
 package com.jason.controllers;

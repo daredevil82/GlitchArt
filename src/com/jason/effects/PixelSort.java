@@ -3,7 +3,10 @@
 *	Date : Nov 20, 2013
 *	Description : 
 *
-*	Implements a pixels sort effect for the photo images
+*	Implements a pixels sort effect for the photo images, Java 
+*	implementation of algorithm from
+*
+* 	https://github.com/kimasendorf/ASDFPixelSort
 */
 
 package com.jason.effects;

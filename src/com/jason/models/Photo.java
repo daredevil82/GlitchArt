@@ -2,6 +2,10 @@
 *	Author: Jason
 *	Date : Nov 20, 2013
 *	Description : 
+*
+*	In memory representation of the provided image, 
+*	returns either an ArrayList<Integer> or int[][] 
+*	array of pixel color values for effect processing 
 */
 
 package com.jason.models;
