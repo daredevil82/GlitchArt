@@ -13,27 +13,76 @@
 
 package com.jason.glitchart.effects;
 
+import com.jason.glitchart.models.Photo;
+
 import java.util.ArrayList;
 
 public class PixelSort {
 	
 	private static PixelSort instance = null;
 	
-	public final int 	blackValue = -10000000, //equivalent to rgb(103, 105, 128)
-						whiteValue = -6000000,  //equivalent to rgb(164, 114, 128)
-						brightnessValue = 60;
+	private final int 	BLACKVALUE = -10000000, //equivalent to rgb(103, 105, 128)
+											WHITEVALUE = -6000000,  //equivalent to rgb(164, 114, 128)
+											BRIGHTNESSVALUE = 60;
+
+	private int mode;
+
+	private Photo photo;
 	
-	//zero arg constructor
-	protected PixelSort() { }
+	//One arg constructor
+	protected PixelSort(Photo photo) {
+		this.photo = photo;
+		this.mode = 0;
+	}
+
+	//two arg constructor
+	protected PixelSort(Photo photo, int mode){
+		this.photo = photo;
+		this.mode = mode;
+	}
+
+	public static PixelSort getInstance(Photo photo){
+		if (instance == null)
+			instance = new PixelSort(photo);
+
+		else {
+			instance.photo = photo;
+			instance.mode = 0;
+		}
+
+		return instance;
+
+	}
 	
 	//singleton pattern constraint
-	public static PixelSort getInstance() {
+	public static PixelSort getInstance(Photo photo, int mode) {
 		if (instance == null)
-			instance = new PixelSort();
+			instance = new PixelSort(photo, mode);
+
+		else{
+			instance.mode = mode;
+			instance.photo = photo;
+		}
 		
 		return instance;
 	}
-	
+
+	public void setPhoto(Photo photo){
+		this.photo = photo;
+	}
+
+	public void setMode(int mode){
+		this.mode = mode;
+	}
+
+	public Photo getPhoto(){
+		return this.photo;
+	}
+
+	public int getMode(){
+		return this.mode;
+	}
+
 	public int[][] sortBlack(int[][] data, int width, int height) {
 		return null;
 	}
@@ -42,44 +91,9 @@ public class PixelSort {
 		return null;
 	}
 	
-	
-	/***
-	 * 
-	 * @param data
-	 * @param x
-	 * @param y
-	 * @param height
-	 * @param width
-	 * @return int
-	 * 
-	 * 	Find the first column location that doesn't match the blackValue setting
-	 */
-	private int getFirstNotBlackY(ArrayList<Integer> data, int x, int y, int height, int width) {
-		
-		if (y < height) {
-			while (data.get(x + y * width) < blackValue) {
-				y++;
-				if (y >= height)
-					return -1;
-			}
-		}
-		
-		return y;
+	private void setPixelValue(int x, int y, int val){
+		//int offset = (x + y * width) * 4;
 	}
-	
-	//Find the column location that is greater than the black value setting
-	private int getNextBlackY(ArrayList<Integer> data, int x, int y, int height, int width) {
-		if (y < height) {
-			while (data.get(x + y * width) > blackValue) {
-				y++;
-				if (y >= height)
-					return height - 1;
-			}
-		}
-		
-		return y - 1;
-	}
-	
 
 }
 

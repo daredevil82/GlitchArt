@@ -8,6 +8,7 @@
 
 package com.jason.glitchart.controllers;
 
+import com.jason.glitchart.effects.*;
 import com.jason.glitchart.models.*;
 
 import java.util.ArrayList;
@@ -31,6 +32,14 @@ public class PhotoController {
 	
 	public Photo photoInit(String file) {
 		return new Photo(file);
+	}
+
+	public Photo applyEffect(Photo photo, int effect){
+		return null;
+	}
+
+	public Photo applyEffect(Photo photo){
+		return null;
 	}
 	
 	public static void main(String[] args) {

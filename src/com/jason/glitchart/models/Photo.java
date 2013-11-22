@@ -24,8 +24,8 @@ public class Photo {
 	private File 	file = null;
 	
 	private	 int 	width = 0,
-					height = 0,
-					offset = 3;
+								height = 0,
+								offset = 3;
 	
 	private BufferedImage 	oldPhoto = null, 
 							newPhoto = null;
@@ -42,7 +42,10 @@ public class Photo {
 			this.oldPhoto = ImageIO.read(this.file);
 			parseImage();
 			
-		} catch (IOException e) { }
+		} catch (IOException e) {
+			System.err.print("Error creating a file with the supplied path:\t" + file + "\n\nExiting now...");
+			System.exit(1);
+		}
 	}
 	
 	
