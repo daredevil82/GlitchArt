@@ -65,7 +65,7 @@ public class GlitchArt {
 
 				int effect = 0;
 
-				if (cmd.hasOption("m")){
+				if (!cmd.hasOption("m")){
 
 					System.out.println("No mode provided, using default Dark effect");
 
@@ -75,8 +75,9 @@ public class GlitchArt {
 						effect = Integer.parseInt(cmd.getOptionValue("m"));
 
 					} catch (NumberFormatException e){
-						System.err.println("Invalid mode provided.  Acceptable entries are [0, 1, 2]");
-						System.exit(2);
+						System.err.println("Invalid mode provided.  Acceptable entries are [0, 1, 2]" +
+							"\nUsing 0 as default...");
+						//System.exit(2);
 					}
 				}
 

@@ -1,6 +1,10 @@
 package com.jason.glitchart.views;
 
-import com.jason.glitchart.*;
+import com.jason.glitchart.models.*;
+import com.jason.glitchart.controllers.PhotoController;
+
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +29,23 @@ public class GlitchArtCommandLine {
 	}
 
 	public void handleArgs(String file, int effect){
+		PhotoController pc = PhotoController.getInstance();
+		System.out.println("File provided: " + file);
+		pc.photoInit(file);
+
+		Photo photo = pc.getPhoto();
+
+		int[] pixels = photo.getOriginal1DArray();
+
+		System.out.printf("Pixel Count: %d\n\nFirst 5 Pixel Values:\n", (photo.getWidth() * photo.getHeight()));
+
+
+		for (int i = 0; i < 5; i++){
+			System.out.printf("\tpixels[%d]:\t%d\t%s\n",
+								 i, pixels[i], new Color(pixels[i]));
+		}
+
+
 
 	}
 

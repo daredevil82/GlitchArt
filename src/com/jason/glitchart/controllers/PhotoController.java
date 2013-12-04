@@ -11,11 +11,11 @@ package com.jason.glitchart.controllers;
 import com.jason.glitchart.effects.*;
 import com.jason.glitchart.models.*;
 
-import java.util.ArrayList;
 
 public class PhotoController {
 
 	private static PhotoController instance = null;
+	private Photo photo = null;
 	
 	public static PhotoController getInstance() {
 		
@@ -25,13 +25,18 @@ public class PhotoController {
 		return instance;
 		
 	}
-	
+
+	//zero arg constructor
 	protected PhotoController() {
 		
 	}
 	
-	public Photo photoInit(String file) {
-		return new Photo(file);
+	public void photoInit(String file) {
+		this.photo =  new Photo(file);
+	}
+
+	public Photo getPhoto(){
+		return this.photo;
 	}
 
 	public Photo applyEffect(Photo photo, int effect){
@@ -40,16 +45,6 @@ public class PhotoController {
 
 	public Photo applyEffect(Photo photo){
 		return null;
-	}
-	
-	public static void main(String[] args) {
-		PhotoController pc = PhotoController.getInstance();
-		Photo photo = pc.photoInit(args[0]);
-		
-		ArrayList<Integer> pixelList = photo.getPixelList();
-		
-		System.out.println("PixelList Values: " + pixelList.size() + "\nFirst Pixel: 0x" + Integer.toHexString(pixelList.get(0)).toUpperCase());
-		
 	}
 	
 }
