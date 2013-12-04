@@ -30,7 +30,6 @@ public class GlitchArtCommandLine {
 
 	public void handleArgs(String file, int effect){
 		PhotoController pc = PhotoController.getInstance();
-		System.out.println("File provided: " + file);
 		pc.photoInit(file);
 
 		Photo photo = pc.getPhoto();
@@ -45,7 +44,7 @@ public class GlitchArtCommandLine {
 								 i, pixels[i], new Color(pixels[i]));
 		}
 
-
+		pc.saveImage(photo.getOldPhoto());
 
 	}
 

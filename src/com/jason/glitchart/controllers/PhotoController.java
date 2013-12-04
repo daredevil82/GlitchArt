@@ -7,9 +7,9 @@
 */
 
 package com.jason.glitchart.controllers;
-
-import com.jason.glitchart.effects.*;
 import com.jason.glitchart.models.*;
+
+import java.awt.image.BufferedImage;
 
 
 public class PhotoController {
@@ -45,6 +45,10 @@ public class PhotoController {
 
 	public Photo applyEffect(Photo photo){
 		return null;
+	}
+
+	public void saveImage(BufferedImage image){
+		this.photo.saveImage(image);
 	}
 	
 }

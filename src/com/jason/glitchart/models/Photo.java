@@ -8,12 +8,15 @@
 */
 
 package com.jason.glitchart.models;
+import com.jason.glitchart.utils.FileUtils;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
+
 import java.io.File;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -40,19 +43,12 @@ public class Photo {
 	
 	public Photo(String file) {
 		try {
-			this.file = new File(file);
 
-			if (!this.file.exists()){
-				System.out.println("File doesn't exist at defined path, trying with current path...\n" +
-					this.currentPath + file);
-				this.file = new File(this.currentPath + file);
-			}
-
+			this.file = FileUtils.openFile(file);
 			this.oldPhoto = ImageIO.read(this.file);
 			this.imageChanged = false;
 			this.hasAlphaChannel = this.oldPhoto.getAlphaRaster() != null;
 			getPixelArray();
-
 			
 		} catch (IOException e) {
 			System.err.print("ImageIO cannot read the file with the supplied path:\t" + file + "\n\nExiting now...");
@@ -70,11 +66,8 @@ public class Photo {
 		int 	pixelLength = 4,
 				argb = -1;
 
-		long start = 0L;
-
 		if (hasAlphaChannel){
 
-			start = System.currentTimeMillis();
 			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength){
 				argb = 0;
 				argb += (((int) pixels[pixel] & 0xFF) << 24); //alpha channel
@@ -91,7 +84,6 @@ public class Photo {
 				}
 			}
 		} else {
-			start = System.currentTimeMillis();
 			pixelLength = 3;
 
 			for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength){
@@ -110,9 +102,6 @@ public class Photo {
 
 			}
 		}
-		double elapsed = (double) (System.currentTimeMillis() - start);
-
-		System.out.printf("Parsing image into 2D array elapsed time:\t%f\n", elapsed);
 	}
 
 	private void flattenArray(int[][] pixels, int[] flatten){
@@ -133,15 +122,10 @@ public class Photo {
 
 	public int[] getOriginal1DArray(){
 		if (this.original1DArray == null){
+
 			this.original1DArray = new int[getWidth() * getHeight()];
-
-			long start = System.currentTimeMillis();
-
 			flattenArray(this.original2DArray, this.original1DArray);
 
-			double elapsed = (double)(System.currentTimeMillis() - start);
-
-			System.out.printf("Flattening 2D array elapsed time:\t%f\n", elapsed);
 		}
 
 		return this.original1DArray;
@@ -202,5 +186,10 @@ public class Photo {
 			}
 		}
 	}
+
+	public boolean saveImage(BufferedImage image){
+		return FileUtils.saveImage(image, this.file);
+	}
+
 }
 
