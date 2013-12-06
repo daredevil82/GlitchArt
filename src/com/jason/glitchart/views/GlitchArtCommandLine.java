@@ -34,17 +34,17 @@ public class GlitchArtCommandLine {
 
 		Photo photo = pc.getPhoto();
 
-		int[] pixels = photo.getOriginal1DArray();
+		int[][] pixels = photo.getOriginal2DArray();
 
 		System.out.printf("Pixel Count: %d\n\nFirst 5 Pixel Values:\n", (photo.getWidth() * photo.getHeight()));
 
 
 		for (int i = 0; i < 5; i++){
 			System.out.printf("\tpixels[%d]:\t%d\t%s\n",
-								 i, pixels[i], new Color(pixels[i]));
+								 i, pixels[i], new Color(pixels[0][i]));
 		}
 
-		pc.saveImage(photo.getOldPhoto());
+		//pc.saveImage(photo.getOldPhoto());
 
 	}
 

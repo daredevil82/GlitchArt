@@ -11,20 +11,17 @@
 * 
 */
 
-package com.jason.glitchart.effects.pixelsort;
+package com.jason.glitchart.effects.pixelsort.asdfPixelSort;
 
 import com.jason.glitchart.models.Photo;
-
-import java.awt.image.BufferedImage;
 import java.util.Arrays;
 
 public class PixelSort {
 	
 	private static PixelSort instance = null;
 
-	private int mode;
-
-	private int[] pixelArray = null;
+	private int mode = 0,
+				loops = 1;
 
 
 	private Photo photo;
@@ -32,7 +29,6 @@ public class PixelSort {
 	//One arg constructor
 	protected PixelSort(Photo photo) {
 		this.photo = photo;
-		this.mode = 0;
 	}
 
 	//two arg constructor
@@ -47,7 +43,6 @@ public class PixelSort {
 
 		else {
 			instance.photo = photo;
-			instance.mode = 0;
 		}
 
 		return instance;
@@ -75,15 +70,36 @@ public class PixelSort {
 		this.mode = mode;
 	}
 
-	public Photo getPhoto(){
-		return this.photo;
-	}
-
 	public int getMode(){
 		return this.mode;
 	}
 
-	public void sortRow(Photo photo, int row){
+	private void applyEffect(){
+		int row = 0,
+			column = 0;
+
+		while (column < photo.getWidth() - 1){
+			sortColumn(column);
+			column++;
+		}
+
+		while (row < photo.getHeight() - 1){
+			sortRow(row);
+			row++;
+		}
+
+		if (loops <= 0){
+
+
+		} else{
+			loops--;
+			applyEffect();
+		}
+
+
+	}
+
+	private void sortRow(int row){
 
 		int x = 0,
 			y = row,
@@ -112,21 +128,19 @@ public class PixelSort {
 			values = new int[sortLength];
 
 			for (int i = 0; i < sortLength; i++)
-				values[i] = photo.getOriginalPixelValue(x+1, y);
+				values[i] = photo.getPixelValue(x+1, y);
 
 			Arrays.sort(values);
 
 			for (int i = 0; i < sortLength; i++)
-				photo.setNewPixelValue(x + i, y, values[i]);
+				photo.setPixelValue(x + i, y, values[i]);
 
 			x = xEnd + 1;
-
-
 		}
 
 	}
 
-	public void sortColumn(Photo photo, int column){
+	private void sortColumn(int column){
 
 		int x = column,
 			y = 0,
@@ -153,12 +167,12 @@ public class PixelSort {
 			values = new int[sortLength];
 
 			for (int i = 0; i < sortLength; i++)
-				values[i] = photo.getOriginalPixelValue(x, y + 1);
+				values[i] = photo.getPixelValue(x, y + 1);
 
 			Arrays.sort(values);
 
 			for (int i = 0; i < sortLength; i++)
-				photo.setNewPixelValue(x, y+i, values[i]);
+				photo.setPixelValue(x, y+i, values[i]);
 
 			y = yEnd + 1;
 

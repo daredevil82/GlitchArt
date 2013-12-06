@@ -1,4 +1,4 @@
-package com.jason.glitchart.effects.pixelsort;
+package com.jason.glitchart.effects.pixelsort.asdfPixelSort;
 
 import com.jason.glitchart.models.Photo;
 
@@ -16,7 +16,7 @@ public class SortBlack {
 
 		int curX = x;
 
-		while (photo.getOriginalPixelValue(curX, y) < BLACKVALUE){
+		while (photo.getPixelValue(curX, y) < BLACKVALUE){
 			curX++;
 
 			if (curX >= photo.getWidth())
@@ -30,7 +30,7 @@ public class SortBlack {
 		int curY = y;
 
 		if (curY < photo.getHeight()){
-			while (photo.getOriginalPixelValue(x, curY) < BLACKVALUE){
+			while (photo.getPixelValue(x, curY) < BLACKVALUE){
 				curY++;
 
 				if (curY >= photo.getHeight())
@@ -44,7 +44,7 @@ public class SortBlack {
 	public static int  getNextBlackX(int x, int y, Photo photo){
 		int curX = x + 1;
 
-		while (photo.getOriginalPixelValue(curX, y) > BLACKVALUE){
+		while (photo.getPixelValue(curX, y) > BLACKVALUE){
 			curX++;
 
 			if (curX > photo.getWidth())
@@ -58,7 +58,7 @@ public class SortBlack {
 		int curY = y + 1;
 
 		if (curY < photo.getHeight()){
-			while (photo.getOriginalPixelValue(x, curY) > BLACKVALUE){
+			while (photo.getPixelValue(x, curY) > BLACKVALUE){
 				curY++;
 
 				if (curY >= photo.getHeight())
